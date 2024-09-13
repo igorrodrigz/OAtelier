@@ -24,7 +24,7 @@ def criar_banco():
         Nome_projeto TEXT NOT NULL,
         Nome_cliente TEXT,
         Data_entrada TEXT,
-        Status TEXT CHECK( Status IN ('entrada', 'em andamento', 'terceirizado', 'vistoria', 'entregue') ) NOT NULL,
+        Status TEXT CHECK(Status IN ('entrada', 'em andamento', 'terceirizado', 'vistoria', 'entregue')) NOT NULL,
         Detalhes TEXT,
         Quem_recebeu TEXT,
         Aprovacao TEXT,

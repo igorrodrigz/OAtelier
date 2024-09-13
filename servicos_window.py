@@ -56,33 +56,27 @@ class ServicosWindow(QDialog):
 
     def buscar_nome_cliente(self, cliente_id):
         try:
-            conn = sqlite3.connect('BancoAtelier.db')
-            cursor = conn.cursor()
-            cursor.execute("SELECT Nome_cliente FROM CadastroClientes WHERE ID_Cliente = ?", (cliente_id,))
-            cliente = cursor.fetchone()
-            conn.close()
-
-            if cliente:
-                return cliente[0]
-            return "Cliente não encontrado"
+            with sqlite3.connect('BancoAtelier.db') as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT Nome_cliente FROM CadastroClientes WHERE ID_Cliente = ?", (cliente_id,))
+                cliente = cursor.fetchone()
+            return cliente[0] if cliente else "Cliente não encontrado"
         except Exception as e:
             QMessageBox.critical(self, "Erro", f"Erro ao buscar nome do cliente: {e}")
             return "Erro ao buscar cliente"
 
     def load_servicos(self):
         try:
-            conn = sqlite3.connect('BancoAtelier.db')
-            cursor = conn.cursor()
-            cursor.execute("SELECT * FROM CadastroServicos WHERE ID_Cliente = ?", (self.cliente_id,))
-            servicos = cursor.fetchall()
-            self.table_servicos.setRowCount(len(servicos))
+            with sqlite3.connect('BancoAtelier.db') as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM CadastroServicos WHERE ID_Cliente = ?", (self.cliente_id,))
+                servicos = cursor.fetchall()
 
+            self.table_servicos.setRowCount(len(servicos))
             for row_idx, servico in enumerate(servicos):
                 for col_idx, value in enumerate(servico):
                     item = QTableWidgetItem(str(value))
                     self.table_servicos.setItem(row_idx, col_idx, item)
-
-            conn.close()
         except Exception as e:
             QMessageBox.critical(self, "Erro", f"Erro ao carregar serviços: {e}")
 
@@ -105,15 +99,19 @@ class ServicosWindow(QDialog):
         selected_row = self.table_servicos.currentRow()
         if selected_row != -1:
             servico_id = self.table_servicos.item(selected_row, 0).text()
-            reply = QMessageBox.question(self, 'Confirmação', f"Tem certeza que deseja excluir o serviço ID {servico_id}?",
+
+            # Criar caixa de diálogo de confirmação
+            reply = QMessageBox.question(self, 'Confirmação de Exclusão',
+                                         f'Tem certeza que deseja excluir o serviço com ID {servico_id}?',
                                          QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+            # Se o usuário clicar em "Sim", realizar a exclusão
             if reply == QMessageBox.Yes:
                 try:
-                    conn = sqlite3.connect('BancoAtelier.db')
-                    cursor = conn.cursor()
-                    cursor.execute("DELETE FROM CadastroServicos WHERE ID_Servico = ?", (servico_id,))
-                    conn.commit()
-                    conn.close()
+                    with sqlite3.connect('BancoAtelier.db') as conn:
+                        cursor = conn.cursor()
+                        cursor.execute("DELETE FROM CadastroServicos WHERE ID_Servico = ?", (servico_id,))
+                        conn.commit()
                     self.load_servicos()
                 except Exception as e:
                     QMessageBox.critical(self, "Erro", f"Erro ao excluir serviço: {e}")
@@ -172,25 +170,21 @@ class ServicoDialog(QDialog):
 
     def buscar_nome_cliente(self):
         try:
-            conn = sqlite3.connect('BancoAtelier.db')
-            cursor = conn.cursor()
-            cursor.execute("SELECT Nome_cliente FROM CadastroClientes WHERE ID_Cliente = ?", (self.cliente_id,))
-            cliente = cursor.fetchone()
-            conn.close()
-
-            if cliente:
-                return cliente[0]
-            return "Cliente não encontrado"
+            with sqlite3.connect('BancoAtelier.db') as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT Nome_cliente FROM CadastroClientes WHERE ID_Cliente = ?", (self.cliente_id,))
+                cliente = cursor.fetchone()
+            return cliente[0] if cliente else "Cliente não encontrado"
         except Exception as e:
             QMessageBox.critical(self, "Erro", f"Erro ao buscar nome do cliente: {e}")
             return "Erro ao buscar cliente"
 
     def load_servico(self):
         try:
-            conn = sqlite3.connect('BancoAtelier.db')
-            cursor = conn.cursor()
-            cursor.execute("SELECT * FROM CadastroServicos WHERE ID_Servico = ?", (self.servico_id,))
-            servico = cursor.fetchone()
+            with sqlite3.connect('BancoAtelier.db') as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM CadastroServicos WHERE ID_Servico = ?", (self.servico_id,))
+                servico = cursor.fetchone()
             if servico:
                 self.input_nome_projeto.setText(servico[1])
                 self.input_data_entrada.setDate(QDate.fromString(servico[3], 'yyyy-MM-dd') if servico[3] else QDate())
@@ -200,7 +194,6 @@ class ServicoDialog(QDialog):
                 self.input_aprovacao.setText(servico[7])
                 self.input_data_entregue.setDate(QDate.fromString(servico[8], 'yyyy-MM-dd') if servico[8] else QDate())
                 self.input_quem_retirou.setText(servico[9])
-            conn.close()
         except Exception as e:
             QMessageBox.critical(self, "Erro", f"Erro ao carregar serviço: {e}")
 
@@ -214,28 +207,31 @@ class ServicoDialog(QDialog):
         data_entregue = self.input_data_entregue.date().toString('yyyy-MM-dd')
         quem_retirou = self.input_quem_retirou.text().strip()
 
-        if not nome_projeto or not status:
-            QMessageBox.warning(self, "Aviso", "Os campos 'Nome Projeto' e 'Status' são obrigatórios.")
-            return
-
         try:
-            conn = sqlite3.connect('BancoAtelier.db')
-            cursor = conn.cursor()
-
-            if self.servico_id:
-                cursor.execute("""
-                    UPDATE CadastroServicos
-                    SET Nome_projeto = ?, Data_entrada = ?, Status = ?, Detalhes = ?, Quem_recebeu = ?, Aprovacao = ?, Data_entregue = ?, Quem_retirou = ?
-                    WHERE ID_Servico = ?
-                """, (nome_projeto, data_entrada, status, detalhes, quem_recebeu, aprovacao, data_entregue, quem_retirou, self.servico_id))
-            else:
-                cursor.execute("""
-                    INSERT INTO CadastroServicos (ID_Cliente, Nome_projeto, Data_entrada, Status, Detalhes, Quem_recebeu, Aprovacao, Data_entregue, Quem_retirou)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """, (self.cliente_id, nome_projeto, data_entrada, status, detalhes, quem_recebeu, aprovacao, data_entregue, quem_retirou))
-
-            conn.commit()
-            conn.close()
+            with sqlite3.connect('BancoAtelier.db') as conn:
+                cursor = conn.cursor()
+                if self.servico_id:
+                    cursor.execute(
+                        """UPDATE CadastroServicos SET Nome_projeto = ?, Data_entrada = ?, Status = ?, Detalhes = ?, 
+                           Quem_recebeu = ?, Aprovacao = ?, Data_entregue = ?, Quem_retirou = ?
+                           WHERE ID_Servico = ?""",
+                        (nome_projeto, data_entrada, status, detalhes, quem_recebeu, aprovacao, data_entregue, quem_retirou, self.servico_id)
+                    )
+                else:
+                    cursor.execute(
+                        """INSERT INTO CadastroServicos (ID_Cliente, Nome_projeto, Data_entrada, Status, Detalhes, 
+                           Quem_recebeu, Aprovacao, Data_entregue, Quem_retirou) 
+                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                        (self.cliente_id, nome_projeto, data_entrada, status, detalhes, quem_recebeu, aprovacao, data_entregue, quem_retirou)
+                    )
+                conn.commit()
             self.accept()
         except Exception as e:
             QMessageBox.critical(self, "Erro", f"Erro ao salvar serviço: {e}")
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    cliente_id = 1  # Substitua pelo ID do cliente conforme necessário
+    window = ServicosWindow(cliente_id)
+    window.show()
+    sys.exit(app.exec_())

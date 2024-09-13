@@ -1,0 +1,132 @@
+/* Estilos gerais */
+QWidget {
+    background-color: #F0F4F8; /* Cinza claro */
+    color: #2C3E50; /* Azul escuro */
+    font-family: "Arial", sans-serif;
+    font-size: 14px;
+}
+
+/* Botões */
+QPushButton {
+    background-color: #2980B9; /* Azul */
+    color: white;
+    border: 1px solid #2980B9;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #3498DB; /* Azul claro */
+}
+
+QPushButton:pressed {
+    background-color: #1F618D; /* Azul mais escuro */
+}
+
+QPushButton:disabled {
+    background-color: #BDC3C7; /* Cinza claro */
+    color: #7F8C8D;
+}
+
+/* Caixa de texto (QLineEdit) */
+QLineEdit {
+    background-color: #ECF0F1; /* Cinza muito claro */
+    border: 1px solid #BDC3C7; /* Borda cinza */
+    padding: 5px;
+    border-radius: 3px;
+}
+
+QLineEdit:focus {
+    border-color: #2980B9; /* Azul ao focar */
+}
+
+/* Combobox */
+QComboBox {
+    background-color: #ECF0F1;
+    border: 1px solid #BDC3C7;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+QComboBox:focus {
+    border-color: #2980B9;
+}
+
+/* Tabelas (QTableWidget) */
+QTableWidget {
+    background-color: #FFFFFF; /* Branco para contraste */
+    gridline-color: #BDC3C7; /* Linhas de grade cinza */
+    border: 1px solid #BDC3C7;
+}
+
+QTableWidget::item {
+    padding: 5px;
+}
+
+QHeaderView::section {
+    background-color: #3498DB; /* Azul claro no cabeçalho */
+    color: white;
+    padding: 5px;
+    border: 1px solid #2980B9;
+}
+
+/* Caixas de diálogo */
+QDialog {
+    background-color: #F0F4F8; /* Fundo cinza claro */
+}
+
+QMessageBox {
+    background-color: #F0F4F8;
+    color: #2C3E50; /* Texto azul escuro */
+    border-radius: 10px;
+    padding: 10px;
+}
+
+QMessageBox QLabel {
+    font-weight: normal;
+    font-size: 14px;
+    color: #2C3E50;
+}
+
+/* Botões da caixa de diálogo */
+QMessageBox QPushButton {
+    background-color: #2980B9; /* Azul */
+    color: white;
+    border: 1px solid #2980B9;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+QMessageBox QPushButton:hover {
+    background-color: #3498DB; /* Azul claro */
+}
+
+QMessageBox QPushButton:pressed {
+    background-color: #1F618D; /* Azul mais escuro */
+}
+
+/* Labels */
+QLabel {
+    font-weight: bold;
+    color: #2C3E50;
+}
+
+/* Layout dos botões na caixa de diálogo */
+QDialogButtonBox {
+    button-layout: QHBoxLayout;
+}
+
+QDialogButtonBox QPushButton {
+    background-color: #2980B9;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-weight: bold;
+}
+
+/* Ajuste do foco no botão padrão (Sim/Não) */
+QPushButton:default {
+    border: 2px solid #2980B9; /* Destaque para o botão padrão */
+}
