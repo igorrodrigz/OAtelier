@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad1618c1-31de-4afe-b414-1b80a6eb7387" name="Changes" comment="Estacionamos o desenvolvimento. Adicionamos botões organizados em duas janelas: uma para clientes e outra para serviços. Agora estamos trabalhando a IU\UX">
-      <change afterPath="$PROJECT_DIR$/new_style.qss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles.qss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AtelierWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/AtelierWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arquivodados.py" beforeDir="false" afterPath="$PROJECT_DIR$/arquivodados.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicos_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/servicos_window.py" afterDir="false" />
-    </list>
+    <list default="true" id="ad1618c1-31de-4afe-b414-1b80a6eb7387" name="Changes" comment="Atualização das funcionalidades e folha de estilo qss" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,7 +167,7 @@
       <workItem from="1725938129826" duration="612000" />
       <workItem from="1726071799494" duration="3305000" />
       <workItem from="1726081150113" duration="2933000" />
-      <workItem from="1726253208601" duration="3712000" />
+      <workItem from="1726253208601" duration="4034000" />
     </task>
     <task id="LOCAL-00001" summary="Estacionamos o desenvolvimento. Adicionamos botões organizados em duas janelas: uma para clientes e outra para serviços. Agora estamos trabalhando a IU\UX">
       <option name="closed" value="true" />
@@ -184,7 +177,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725740561845</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Atualização das funcionalidades e folha de estilo qss">
+      <option name="closed" value="true" />
+      <created>1726257422893</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1726257422894</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,12 +193,13 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Estacionamos o desenvolvimento. Adicionamos botões organizados em duas janelas: uma para clientes e outra para serviços. Agora estamos trabalhando a IU\UX" />
-    <option name="LAST_COMMIT_MESSAGE" value="Estacionamos o desenvolvimento. Adicionamos botões organizados em duas janelas: uma para clientes e outra para serviços. Agora estamos trabalhando a IU\UX" />
+    <MESSAGE value="Atualização das funcionalidades e folha de estilo qss" />
+    <option name="LAST_COMMIT_MESSAGE" value="Atualização das funcionalidades e folha de estilo qss" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OAtelier$testeDB.coverage" NAME="testeDB Coverage Results" MODIFIED="1725738639870" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/OAtelier$arquivodados.coverage" NAME="arquivodados Coverage Results" MODIFIED="1725738623010" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/OAtelier$AtelierWindow.coverage" NAME="AtelierWindow Coverage Results" MODIFIED="1726256988497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/OAtelier$AtelierWindow.coverage" NAME="AtelierWindow Coverage Results" MODIFIED="1726257119714" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/OAtelier$servicos_window.coverage" NAME="servicos_window Coverage Results" MODIFIED="1725737744981" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

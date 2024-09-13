@@ -20,7 +20,7 @@ class ClientWindow(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle("Atelier Recriar - Gestão de Clientes")
+        self.setWindowTitle("OAtelier - Gestão de Clientes")
         self.setGeometry(100, 100, 1000, 600)
 
         # Layout principal
