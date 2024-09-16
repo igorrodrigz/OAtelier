@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad1618c1-31de-4afe-b414-1b80a6eb7387" name="Changes" comment="Atualização das funcionalidades e folha de estilo qss" />
+    <list default="true" id="ad1618c1-31de-4afe-b414-1b80a6eb7387" name="Changes" comment="Atualização do nome na janela">
+      <change afterPath="$PROJECT_DIR$/logo2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pena.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/relatorio.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/servico_dialog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OAtelier.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OAtelier.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AtelierWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/AtelierWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arquivodados.py" beforeDir="false" afterPath="$PROJECT_DIR$/arquivodados.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new_style.qss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/servicos_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/servicos_window.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,6 +30,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -45,10 +62,14 @@
   &quot;keyToString&quot;: {
     &quot;Python.AtelierWindow.executor&quot;: &quot;Run&quot;,
     &quot;Python.arquivodados.executor&quot;: &quot;Run&quot;,
+    &quot;Python.relatorio.executor&quot;: &quot;Run&quot;,
     &quot;Python.servicos_window.executor&quot;: &quot;Run&quot;,
     &quot;Python.testeDB.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testerelatorio.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;MRSolution&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/morei/OneDrive/Área de Trabalho/projetos/Atelier Recriar/OAtelier&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -59,6 +80,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\morei\OneDrive\Área de Trabalho\projetos\Atelier Recriar\OAtelier" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\morei\OneDrive\Área de Trabalho\projetos\Atelier Recriar\OAtelier\styles" />
       <recent name="C:\Users\morei\OneDrive\Área de Trabalho\projetos\Atelier Recriar\OAtelier" />
@@ -111,6 +135,29 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="relatorio" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OAtelier" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/relatorio.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="testeDB" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OAtelier" />
       <option name="ENV_FILES" value="" />
@@ -134,11 +181,36 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="testerelatorio" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OAtelier" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testerelatorio.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.AtelierWindow" />
+        <item itemvalue="Python.relatorio" />
         <item itemvalue="Python.testeDB" />
         <item itemvalue="Python.arquivodados" />
+        <item itemvalue="Python.testerelatorio" />
       </list>
     </recent_temporary>
   </component>
@@ -167,7 +239,14 @@
       <workItem from="1725938129826" duration="612000" />
       <workItem from="1726071799494" duration="3305000" />
       <workItem from="1726081150113" duration="2933000" />
-      <workItem from="1726253208601" duration="4034000" />
+      <workItem from="1726253208601" duration="6442000" />
+      <workItem from="1726271907847" duration="13041000" />
+      <workItem from="1726329019536" duration="13000" />
+      <workItem from="1726338760551" duration="7372000" />
+      <workItem from="1726347480410" duration="252000" />
+      <workItem from="1726361137147" duration="16423000" />
+      <workItem from="1726431487256" duration="4666000" />
+      <workItem from="1726446492526" duration="14234000" />
     </task>
     <task id="LOCAL-00001" summary="Estacionamos o desenvolvimento. Adicionamos botões organizados em duas janelas: uma para clientes e outra para serviços. Agora estamos trabalhando a IU\UX">
       <option name="closed" value="true" />
@@ -185,7 +264,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726257422894</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Atualização do nome na janela">
+      <option name="closed" value="true" />
+      <created>1726257851320</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1726257851320</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,12 +281,15 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Estacionamos o desenvolvimento. Adicionamos botões organizados em duas janelas: uma para clientes e outra para serviços. Agora estamos trabalhando a IU\UX" />
     <MESSAGE value="Atualização das funcionalidades e folha de estilo qss" />
-    <option name="LAST_COMMIT_MESSAGE" value="Atualização das funcionalidades e folha de estilo qss" />
+    <MESSAGE value="Atualização do nome na janela" />
+    <option name="LAST_COMMIT_MESSAGE" value="Atualização do nome na janela" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/OAtelier$testeDB.coverage" NAME="testeDB Coverage Results" MODIFIED="1725738639870" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/OAtelier$arquivodados.coverage" NAME="arquivodados Coverage Results" MODIFIED="1725738623010" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/OAtelier$AtelierWindow.coverage" NAME="AtelierWindow Coverage Results" MODIFIED="1726257119714" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/OAtelier$relatorio.coverage" NAME="relatorio Coverage Results" MODIFIED="1726456207520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/OAtelier$testeDB.coverage" NAME="testeDB Coverage Results" MODIFIED="1726381866767" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/OAtelier$arquivodados.coverage" NAME="arquivodados Coverage Results" MODIFIED="1726342866887" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/OAtelier$testerelatorio.coverage" NAME="testerelatorio Coverage Results" MODIFIED="1726342175708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/OAtelier$AtelierWindow.coverage" NAME="AtelierWindow Coverage Results" MODIFIED="1726459948413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/OAtelier$servicos_window.coverage" NAME="servicos_window Coverage Results" MODIFIED="1725737744981" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
