@@ -26,10 +26,10 @@ class ServicosWindow(QDialog):
 
         # Tabela de serviços
         self.table_servicos = QTableWidget()
-        self.table_servicos.setColumnCount(9)  # 9 colunas
+        self.table_servicos.setColumnCount(12)  # 12 Colunas na tabela de serviços
         self.table_servicos.setHorizontalHeaderLabels([
-            "ID Serviço", "Nome Projeto", "Data Entrada", "Status", "Detalhes",
-            "Quem Recebeu", "Aprovação", "Data Entregue", "Quem Retirou"
+            "ID Serviço", "Nome Projeto", "Data Entrada","Data Prazo" , "Status", "Detalhes",
+            "Material/Adicional","Valor","Quem Recebeu", "Aprovação", "Data Entregue", "Quem Retirou"
         ])
         self.table_servicos.setSelectionBehavior(QTableWidget.SelectRows)
         self.table_servicos.setEditTriggers(QTableWidget.NoEditTriggers)
@@ -84,7 +84,8 @@ class ServicosWindow(QDialog):
             conexao = sqlite3.connect('BancoAtelier.db')
             cursor = conexao.cursor()
             cursor.execute("""
-            SELECT ID_Servico, Nome_projeto, Data_entrada, Status, Detalhes, Quem_recebeu, Aprovacao, Data_entregue, Quem_retirou
+            SELECT ID_Servico, Nome_projeto, Data_entrada, Data_prazo, Status, Detalhes, Material_adicional, Valor,
+             Quem_recebeu, Aprovacao, Data_entregue, Quem_retirou
             FROM CadastroServicos
             WHERE ID_Cliente = ?
             """, (self.cliente_id,))

@@ -1,7 +1,7 @@
 import sys
 import sqlite3
 import random
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, \
     QPushButton, QDialog, QFormLayout, QLineEdit, QLabel, QFrame, QSizePolicy, QSpacerItem, QMessageBox
 from PyQt5.QtCore import Qt
@@ -21,26 +21,38 @@ def criar_banco_de_dados(caminho_db):
     try:
         conn = sqlite3.connect(caminho_db)
         cursor = conn.cursor()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS CadastroClientes (
-                            ID_Cliente INTEGER PRIMARY KEY AUTOINCREMENT,
-                            Nome_cliente TEXT NOT NULL,
-                            Endereco TEXT,
-                            Cep TEXT,
-                            Cpf TEXT NOT NULL,
-                            Telefone TEXT)''')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS CadastroServicos (
-                            ID_Servico INTEGER PRIMARY KEY AUTOINCREMENT,
-                            Nome_projeto TEXT NOT NULL,
-                            Nome_cliente TEXT,
-                            Data_entrada TEXT,
-                            Status TEXT NOT NULL,
-                            Detalhes TEXT,
-                            Quem_recebeu TEXT,
-                            Aprovacao TEXT,
-                            Data_entregue TEXT,
-                            Quem_retirou TEXT,
-                            ID_Cliente INTEGER,
-                            FOREIGN KEY (ID_Cliente) REFERENCES CadastroClientes (ID_Cliente))''')
+        # Criar tabela CadastroClientes
+        cursor.execute('''
+                CREATE TABLE IF NOT EXISTS CadastroClientes (
+                    ID_Cliente INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Nome_cliente TEXT NOT NULL,
+                    Endereco TEXT,
+                    Cep TEXT,
+                    Cpf TEXT NOT NULL,
+                    Telefone TEXT
+                )
+                ''')
+
+        # Criar tabela CadastroServicos com a coluna ID_Cliente
+        cursor.execute('''
+                CREATE TABLE IF NOT EXISTS CadastroServicos (
+                    ID_Servico INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Nome_projeto TEXT NOT NULL,
+                    Nome_cliente TEXT,
+                    Data_entrada DATE,
+                    Data_prazo DATE,
+                    Status TEXT CHECK(Status IN ('Entrada', 'Em andamento','Lixa','Marcenaria','Pintura', 'Terceirizado', 'Vistoria', 'Entregue')) NOT NULL,
+                    Detalhes TEXT,
+                    Material_adicional TEXT,
+                    Valor TEXT,
+                    Quem_recebeu TEXT,
+                    Aprovacao TEXT,
+                    Data_entregue DATE,
+                    Quem_retirou TEXT,
+                    ID_Cliente INTEGER,
+                    FOREIGN KEY (ID_Cliente) REFERENCES CadastroClientes(ID_Cliente)
+                )
+                ''')
         conn.commit()
         conn.close()
     except Exception as e:
@@ -122,6 +134,8 @@ class ClientWindow(QWidget):
         # Frame 3: Informações adicionais
         self.frame3 = QFrame(self)
         frame3_layout = QVBoxLayout()
+
+
         self.motivational_label = QLabel(self.get_motivational_quote())
         self.motivational_label.setFont(QFont("Arial", 16))
         self.motivational_label.setWordWrap(True)

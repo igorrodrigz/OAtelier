@@ -1,5 +1,5 @@
 import sqlite3
-from PyQt5.QtWidgets import QDialog, QLineEdit, QFormLayout, QPushButton, QMessageBox, QComboBox, QDateEdit
+from PyQt5.QtWidgets import QDialog, QLineEdit, QFormLayout, QPushButton, QMessageBox, QComboBox, QDateEdit, QTextEdit
 from PyQt5.QtCore import QDate
 
 class ServicoDialog(QDialog):
@@ -16,9 +16,12 @@ class ServicoDialog(QDialog):
         self.nome_projeto = QLineEdit()
         self.data_entrada = QDateEdit(calendarPopup=True)
         self.data_entrada.setDate(QDate.currentDate())
+        self.data_prazo = QDateEdit(calendarPopup=True)
         self.status = QComboBox()
-        self.status.addItems(["Entrada", "Em andamento", "Terceirizado", "Concluído", "Entregue", "Cancelado"])
-        self.detalhes = QLineEdit()
+        self.status.addItems(["Entrada", "Em andamento", "Terceirizado","Lixa", "Marcenaria", "Pintura", "Concluído", "Entregue", "Cancelado"])
+        self.detalhes = QTextEdit()
+        self.material_adicional = QTextEdit()
+        self.valor = QLineEdit()
         self.quem_recebeu = QLineEdit()
         self.aprovacao = QLineEdit()
         self.data_entregue = QDateEdit(calendarPopup=True)
@@ -28,8 +31,11 @@ class ServicoDialog(QDialog):
         layout = QFormLayout()
         layout.addRow("Nome do Projeto:", self.nome_projeto)
         layout.addRow("Data de Entrada:", self.data_entrada)
+        layout.addRow("Data Prazo:", self.data_prazo)
         layout.addRow("Status:", self.status)
         layout.addRow("Detalhes:", self.detalhes)
+        layout.addRow("Material Adicional:", self.material_adicional)
+        layout.addRow("Valor:", self.valor)
         layout.addRow("Quem Recebeu:", self.quem_recebeu)
         layout.addRow("Aprovação:", self.aprovacao)
         layout.addRow("Data Entregue:", self.data_entregue)
@@ -51,7 +57,7 @@ class ServicoDialog(QDialog):
             conexao = sqlite3.connect('BancoAtelier.db')
             cursor = conexao.cursor()
             cursor.execute(
-                "SELECT Nome_projeto, Data_entrada, Status, Detalhes, Quem_recebeu, Aprovacao, Data_entregue, Quem_retirou FROM CadastroServicos WHERE ID_Servico = ?",
+                "SELECT Nome_projeto, Data_entrada, Data_prazo, Status, Detalhes, Material_adicional, Valor, Quem_recebeu, Aprovacao, Data_entregue, Quem_retirou FROM CadastroServicos WHERE ID_Servico = ?",
                 (self.servico_id,))
             dados = cursor.fetchone()
             conexao.close()
@@ -59,21 +65,27 @@ class ServicoDialog(QDialog):
             if dados:
                 self.nome_projeto.setText(dados[0])
                 self.data_entrada.setDate(QDate.fromString(dados[1], 'yyyy-MM-dd') if dados[1] else QDate.currentDate())
-                self.status.setCurrentText(dados[2])
-                self.detalhes.setText(dados[3])
-                self.quem_recebeu.setText(dados[4])
-                self.aprovacao.setText(dados[5])
+                self.data_prazo.setDate(QDate.fromString(dados[2], 'yyyy-MM-dd') if dados[2] else QDate.currentDate())
+                self.status.setCurrentText(dados[3])
+                self.detalhes.setPlainText(dados[4])
+                self.material_adicional.setPlainText(dados[5])
+                self.valor.setText(dados[6])
+                self.quem_recebeu.setText(dados[7])
+                self.aprovacao.setText(dados[8])
                 self.data_entregue.setDate(
-                    QDate.fromString(dados[6], 'yyyy-MM-dd') if dados[6] else QDate.currentDate())
-                self.quem_retirou.setText(dados[7])
+                    QDate.fromString(dados[9], 'yyyy-MM-dd') if dados[9] else QDate.currentDate())
+                self.quem_retirou.setText(dados[10])
         except sqlite3.Error as e:
             QMessageBox.critical(self, "Erro", f"Erro ao carregar dados do serviço: {e}")
 
     def salvar_servico(self):
         nome_projeto = self.nome_projeto.text()
         data_entrada = self.data_entrada.date().toString('yyyy-MM-dd')
+        data_prazo = self.data_prazo.date().toString('yyyy-MM-dd')
         status = self.status.currentText()
-        detalhes = self.detalhes.text()
+        detalhes = self.detalhes.toPlainText()
+        material_adicional = self.material_adicional.toPlainText()
+        valor = self.valor.text()
         quem_recebeu = self.quem_recebeu.text()
         aprovacao = self.aprovacao.text()
         data_entregue = self.data_entregue.date().toString('yyyy-MM-dd')
@@ -90,17 +102,19 @@ class ServicoDialog(QDialog):
             if self.servico_id:
                 cursor.execute("""
                     UPDATE CadastroServicos
-                    SET Nome_projeto = ?, Data_entrada = ?, Status = ?, Detalhes = ?, Quem_recebeu = ?, Aprovacao = ?, Data_entregue = ?, Quem_retirou = ?
+                    SET Nome_projeto = ?, Data_entrada = ?, Data_prazo = ?, Status = ?, Detalhes = ?, Material_adicional = ?,
+                     Valor = ?, Quem_recebeu = ?, Aprovacao = ?, Data_entregue = ?, Quem_retirou = ?
                     WHERE ID_Servico = ?
                 """, (
-                nome_projeto, data_entrada, status, detalhes, quem_recebeu, aprovacao, data_entregue, quem_retirou,
+                nome_projeto, data_entrada, data_prazo, status, detalhes, material_adicional, valor, quem_recebeu, aprovacao, data_entregue, quem_retirou,
                 self.servico_id))
             else:
                 cursor.execute("""
-                    INSERT INTO CadastroServicos (Nome_projeto, Data_entrada, Status, Detalhes, Quem_recebeu, Aprovacao, Data_entregue, Quem_retirou, ID_Cliente)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO CadastroServicos (Nome_projeto, Data_entrada, Data_prazo, Status, Detalhes, Material_adicional,
+                     Valor, Quem_recebeu, Aprovacao, Data_entregue, Quem_retirou, ID_Cliente)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
-                nome_projeto, data_entrada, status, detalhes, quem_recebeu, aprovacao, data_entregue, quem_retirou,
+                nome_projeto, data_entrada, data_prazo, status, detalhes, material_adicional, valor, quem_recebeu, aprovacao, data_entregue, quem_retirou,
                 self.cliente_id))
 
             conexao.commit()

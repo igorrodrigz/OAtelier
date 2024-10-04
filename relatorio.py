@@ -18,8 +18,8 @@ def obter_dados_servico(id_servico):
         cursor = conexao.cursor()
 
         query = """
-        SELECT s.ID_Servico, s.Nome_projeto, c.Nome_cliente, s.Data_entrada, s.Status, s.Detalhes,
-               s.Quem_recebeu, s.Aprovacao, s.Data_entregue, s.Quem_retirou
+        SELECT s.ID_Servico, s.Nome_projeto, c.Nome_cliente, s.Data_entrada, s.Data_prazo, s.Status, s.Detalhes,
+               Material_adicional,s.Valor, s.Quem_recebeu, s.Aprovacao, s.Data_entregue, s.Quem_retirou
         FROM CadastroServicos s
         JOIN CadastroClientes c ON s.ID_Cliente = c.ID_Cliente
         WHERE s.ID_Servico = ?
@@ -34,12 +34,15 @@ def obter_dados_servico(id_servico):
                 'nome_projeto': dados_servico[1],
                 'nome_cliente': dados_servico[2],
                 'data_entrada': dados_servico[3],
-                'status': dados_servico[4],
-                'detalhes': dados_servico[5],
-                'quem_recebeu': dados_servico[6],
-                'aprovacao': dados_servico[7],
-                'data_entregue': dados_servico[8],
-                'quem_retirou': dados_servico[9]
+                'data_prazo': dados_servico[4],
+                'status': dados_servico[5],
+                'detalhes': dados_servico[6],
+                'material_adicional': dados_servico[7],
+                'valor': dados_servico[8],
+                'quem_recebeu': dados_servico[9],
+                'aprovacao': dados_servico[10],
+                'data_entregue': dados_servico[11],
+                'quem_retirou': dados_servico[12]
             }
         else:
             logging.warning(f"Serviço com ID {id_servico} não encontrado.")
@@ -113,12 +116,15 @@ class Relatorio:
                 ("Nome Projeto", servico.get('nome_projeto', '')),
                 ("Nome Cliente", servico.get('nome_cliente', '')),
                 ("Data Entrada", servico.get('data_entrada', '')),
+                ("Data Prazo", servico.get('data_prazo', '')),
                 ("Status", servico.get('status', '')),
-                ("Detalhes", servico.get('detalhes', '')),
+                ("Detalhes", servico.get('detalhes', '').replace('\n', '<br />')), #Aqui salvamos as quebras de linhas
+                ("Materiais/Adicionais", servico.get('material_adicional', '').replace('\n', '<br />')),
                 ("Quem Recebeu", servico.get('quem_recebeu', '')),
                 ("Aprovação", servico.get('aprovacao', '')),
                 ("Data Entregue", servico.get('data_entregue', '')),
-                ("Quem Retirou", servico.get('quem_retirou', ''))
+                ("Quem Retirou", servico.get('quem_retirou', '')),
+                ("Valor", servico.get('valor', '')),
             ]
 
             for chave, valor in detalhes_servico:
