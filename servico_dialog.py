@@ -18,14 +18,14 @@ class ServicoDialog(QDialog):
         self.data_entrada.setDate(QDate.currentDate())
         self.data_prazo = QDateEdit(calendarPopup=True)
         self.status = QComboBox()
-        self.status.addItems(["Entrada", "Em andamento", "Terceirizado","Lixa", "Marcenaria", "Pintura", "Concluído", "Entregue", "Cancelado"])
+        self.status.addItems(['Entrada', 'Em Desenvolvimento','Testes','Periodo teste de versão','Alteração', 'Finalizado', 'Vistoria', 'Entregue'])
         self.detalhes = QTextEdit()
         self.material_adicional = QTextEdit()
         self.valor = QLineEdit()
-        self.quem_recebeu = QLineEdit()
+        self.vendedor = QLineEdit()
         self.aprovacao = QLineEdit()
         self.data_entregue = QDateEdit(calendarPopup=True)
-        self.quem_retirou = QLineEdit()
+        self.quem_recebeu = QLineEdit()
 
         # Layout do formulário
         layout = QFormLayout()
@@ -36,10 +36,10 @@ class ServicoDialog(QDialog):
         layout.addRow("Detalhes:", self.detalhes)
         layout.addRow("Material Adicional:", self.material_adicional)
         layout.addRow("Valor:", self.valor)
-        layout.addRow("Quem Recebeu:", self.quem_recebeu)
+        layout.addRow("Vendedor:", self.vendedor)
         layout.addRow("Aprovação:", self.aprovacao)
         layout.addRow("Data Entregue:", self.data_entregue)
-        layout.addRow("Quem Retirou:", self.quem_retirou)
+        layout.addRow("Quem Recebeu:", self.quem_recebeu)
 
         # Botão de salvar
         self.button_save = QPushButton("Salvar")
@@ -57,7 +57,7 @@ class ServicoDialog(QDialog):
             conexao = sqlite3.connect('BancoAtelier.db')
             cursor = conexao.cursor()
             cursor.execute(
-                "SELECT Nome_projeto, Data_entrada, Data_prazo, Status, Detalhes, Material_adicional, Valor, Quem_recebeu, Aprovacao, Data_entregue, Quem_retirou FROM CadastroServicos WHERE ID_Servico = ?",
+                "SELECT Nome_projeto, Data_entrada, Data_prazo, Status, Detalhes, Material_adicional, Valor, Vendedor, Aprovacao, Data_entregue, Quem_recebeu FROM CadastroServicos WHERE ID_Servico = ?",
                 (self.servico_id,))
             dados = cursor.fetchone()
             conexao.close()
@@ -70,11 +70,11 @@ class ServicoDialog(QDialog):
                 self.detalhes.setPlainText(dados[4])
                 self.material_adicional.setPlainText(dados[5])
                 self.valor.setText(dados[6])
-                self.quem_recebeu.setText(dados[7])
+                self.vendedor.setText(dados[7])
                 self.aprovacao.setText(dados[8])
                 self.data_entregue.setDate(
                     QDate.fromString(dados[9], 'yyyy-MM-dd') if dados[9] else QDate.currentDate())
-                self.quem_retirou.setText(dados[10])
+                self.quem_recebeu.setText(dados[10])
         except sqlite3.Error as e:
             QMessageBox.critical(self, "Erro", f"Erro ao carregar dados do serviço: {e}")
 
@@ -86,10 +86,10 @@ class ServicoDialog(QDialog):
         detalhes = self.detalhes.toPlainText()
         material_adicional = self.material_adicional.toPlainText()
         valor = self.valor.text()
-        quem_recebeu = self.quem_recebeu.text()
+        vendedor = self.vendedor.text()
         aprovacao = self.aprovacao.text()
         data_entregue = self.data_entregue.date().toString('yyyy-MM-dd')
-        quem_retirou = self.quem_retirou.text()
+        quem_recebeu = self.quem_recebeu.text()
 
         if not nome_projeto or not data_entrada or not status:
             QMessageBox.warning(self, "Aviso", "Preencha todos os campos obrigatórios.")
@@ -103,18 +103,18 @@ class ServicoDialog(QDialog):
                 cursor.execute("""
                     UPDATE CadastroServicos
                     SET Nome_projeto = ?, Data_entrada = ?, Data_prazo = ?, Status = ?, Detalhes = ?, Material_adicional = ?,
-                     Valor = ?, Quem_recebeu = ?, Aprovacao = ?, Data_entregue = ?, Quem_retirou = ?
+                     Valor = ?, Vendedor = ?, Aprovacao = ?, Data_entregue = ?, Quem_recebeu = ?
                     WHERE ID_Servico = ?
                 """, (
-                nome_projeto, data_entrada, data_prazo, status, detalhes, material_adicional, valor, quem_recebeu, aprovacao, data_entregue, quem_retirou,
+                nome_projeto, data_entrada, data_prazo, status, detalhes, material_adicional, valor, vendedor, aprovacao, data_entregue, quem_recebeu,
                 self.servico_id))
             else:
                 cursor.execute("""
                     INSERT INTO CadastroServicos (Nome_projeto, Data_entrada, Data_prazo, Status, Detalhes, Material_adicional,
-                     Valor, Quem_recebeu, Aprovacao, Data_entregue, Quem_retirou, ID_Cliente)
+                     Valor, Vendedor, Aprovacao, Data_entregue, Quem_recebeu, ID_Cliente)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
-                nome_projeto, data_entrada, data_prazo, status, detalhes, material_adicional, valor, quem_recebeu, aprovacao, data_entregue, quem_retirou,
+                nome_projeto, data_entrada, data_prazo, status, detalhes, material_adicional, valor, vendedor, aprovacao, data_entregue, quem_recebeu,
                 self.cliente_id))
 
             conexao.commit()

@@ -19,7 +19,7 @@ def obter_dados_servico(id_servico):
 
         query = """
         SELECT s.ID_Servico, s.Nome_projeto, c.Nome_cliente, s.Data_entrada, s.Data_prazo, s.Status, s.Detalhes,
-               Material_adicional,s.Valor, s.Quem_recebeu, s.Aprovacao, s.Data_entregue, s.Quem_retirou
+               Material_adicional,s.Valor, s.Vendedor, s.Aprovacao, s.Data_entregue, s.Quem_recebeu
         FROM CadastroServicos s
         JOIN CadastroClientes c ON s.ID_Cliente = c.ID_Cliente
         WHERE s.ID_Servico = ?
@@ -39,10 +39,10 @@ def obter_dados_servico(id_servico):
                 'detalhes': dados_servico[6],
                 'material_adicional': dados_servico[7],
                 'valor': dados_servico[8],
-                'quem_recebeu': dados_servico[9],
+                'vendedor': dados_servico[9],
                 'aprovacao': dados_servico[10],
                 'data_entregue': dados_servico[11],
-                'quem_retirou': dados_servico[12]
+                'quem_recebeu': dados_servico[12]
             }
         else:
             logging.warning(f"Serviço com ID {id_servico} não encontrado.")
@@ -65,14 +65,15 @@ class Relatorio:
 
             # Dados da empresa
             dados_empresa = {
-                "Atelier Recriar": "Móveis Planejados • Restaurações • Antiguidades",
-                "Endereço": "Rua Duque de Caxias, 2696, Uruguaiana - RS",
-                "Telefone": "(55) 9 9971-8782 | (55) 3411-8923",
-                "Redes Sociais": "@atelier.recriar"
+                "MR Solutions": "•   Softwares Personalizados   •   Automações de Processos para Empresas",
+                "Endereço": "Rua Marechal Deodoro 4509, Uruguaiana - RS",
+                "Telefone": "(47) 9 3618-2994 | (55) 9 3618-1310",
+                "Instagram": "mr.solutionstech",
+                "Email": "vitoria.mrsolutions@outlook.com",
             }
 
             # Caminho para o logotipo
-            logo_path = 'logo2.png'
+            logo_path = 'logoMR.png'
 
             # Configuração do documento PDF
             doc = SimpleDocTemplate(caminho_arquivo, pagesize=letter, rightMargin=40, leftMargin=40, topMargin=60,
@@ -87,15 +88,15 @@ class Relatorio:
             # Adicionar o logotipo se existir
             if os.path.exists(logo_path):
                 logo = Image(logo_path)
-                logo.drawWidth = 100  # Ajuste a largura conforme necessário
-                logo.drawHeight = 100  # Ajuste a altura conforme necessário
+                logo.drawWidth = 180  # Ajuste a largura conforme necessário
+                logo.drawHeight = 180  # Ajuste a altura conforme necessário
                 logo.hAlign = 'CENTER'
                 story.append(logo)
                 story.append(Spacer(1, 12))
 
             # Título do Relatório
-            story.append(Paragraph("<b>Relatório de Serviços</b>", style_title))
-            story.append(Spacer(1, 12))
+            #story.append(Paragraph("<b>Relatório de Serviços</b>", style_title))
+            #story.append(Spacer(1, 12))
 
             # Informações da Empresa
             for chave, valor in dados_empresa.items():
@@ -113,17 +114,17 @@ class Relatorio:
             # Detalhes do serviço como blocos de texto
             detalhes_servico = [
                 ("ID Serviço", servico.get('id_servico', '')),
-                ("Nome Projeto", servico.get('nome_projeto', '')),
-                ("Nome Cliente", servico.get('nome_cliente', '')),
-                ("Data Entrada", servico.get('data_entrada', '')),
-                ("Data Prazo", servico.get('data_prazo', '')),
+                ("Nome do Projeto", servico.get('nome_projeto', '')),
+                ("Cliente", servico.get('nome_cliente', '')),
+                ("Data de Entrada", servico.get('data_entrada', '')),
+                ("Prazo de Entrega", servico.get('data_prazo', '')),
                 ("Status", servico.get('status', '')),
                 ("Detalhes", servico.get('detalhes', '').replace('\n', '<br />')), #Aqui salvamos as quebras de linhas
-                ("Materiais/Adicionais", servico.get('material_adicional', '').replace('\n', '<br />')),
-                ("Quem Recebeu", servico.get('quem_recebeu', '')),
+                ("Adicionais", servico.get('material_adicional', '').replace('\n', '<br />')),
+                ("Vendedor", servico.get('vendedor', '')),
                 ("Aprovação", servico.get('aprovacao', '')),
                 ("Data Entregue", servico.get('data_entregue', '')),
-                ("Quem Retirou", servico.get('quem_retirou', '')),
+                ("Quem Recebeu", servico.get('quem_recebeu', '')),
                 ("Valor", servico.get('valor', '')),
             ]
 
@@ -140,7 +141,7 @@ class Relatorio:
 
 # Exemplo de uso
 if __name__ == '__main__':
-    id_servico = 26  # Substitua pelo ID do serviço desejado
+    id_servico = 1  # Substitua pelo ID do serviço desejado
     servico = obter_dados_servico(id_servico)  # Recupera os dados do serviço com o ID fornecido
     if servico:
         Relatorio.gerar_relatorio(servico, "relatorio_servico.pdf")  # Gera o relatório para o serviço selecionado

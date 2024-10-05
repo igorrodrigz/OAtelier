@@ -41,14 +41,14 @@ def criar_banco_de_dados(caminho_db):
                     Nome_cliente TEXT,
                     Data_entrada DATE,
                     Data_prazo DATE,
-                    Status TEXT CHECK(Status IN ('Entrada', 'Em andamento','Lixa','Marcenaria','Pintura', 'Terceirizado', 'Vistoria', 'Entregue')) NOT NULL,
+                    Status TEXT CHECK(Status IN ('Entrada', 'Em Desenvolvimento','Testes','Periodo teste de versão','Alteração', 'Finalizado', 'Vistoria', 'Entregue')) NOT NULL,
                     Detalhes TEXT,
                     Material_adicional TEXT,
                     Valor TEXT,
-                    Quem_recebeu TEXT,
+                    Vendedor TEXT,
                     Aprovacao TEXT,
                     Data_entregue DATE,
-                    Quem_retirou TEXT,
+                    Quem_instalou TEXT,
                     ID_Cliente INTEGER,
                     FOREIGN KEY (ID_Cliente) REFERENCES CadastroClientes(ID_Cliente)
                 )
@@ -95,7 +95,7 @@ class ClientWindow(QWidget):
         frame2_1_layout = QVBoxLayout()
         self.table_clientes = QTableWidget()
         self.table_clientes.setColumnCount(6)
-        self.table_clientes.setHorizontalHeaderLabels(["ID", "Nome", "Endereço", "CEP", "CPF", "Telefone"])
+        self.table_clientes.setHorizontalHeaderLabels(["ID", "Nome/Empresa", "Endereço", "CEP", "CPF/cnpj", "Telefone"])
         self.table_clientes.setSelectionBehavior(QTableWidget.SelectRows)
         self.table_clientes.setEditTriggers(QTableWidget.NoEditTriggers)
         header = self.table_clientes.horizontalHeader()
@@ -139,7 +139,7 @@ class ClientWindow(QWidget):
         self.motivational_label = QLabel(self.get_motivational_quote())
         self.motivational_label.setFont(QFont("Arial", 16))
         self.motivational_label.setWordWrap(True)
-        self.company_label = QLabel("<b>Software Exclusivo Atelier Recriar</b> - Desenvolvido por MR Solutions")
+        self.company_label = QLabel("<b>Software Exclusivo OAtelier 1.4</b> - Desenvolvido por MR Solutions")
         frame3_layout.addWidget(self.motivational_label)
         frame3_layout.addWidget(self.company_label)
         self.frame3.setLayout(frame3_layout)
@@ -264,10 +264,10 @@ class ClienteDialog(QDialog):
         if self.cliente_id:
             self.load_cliente()
 
-        layout.addRow(QLabel("Nome:"), self.nome_cliente)
+        layout.addRow(QLabel("Nome/Empresa:"), self.nome_cliente)
         layout.addRow(QLabel("Endereço:"), self.endereco)
         layout.addRow(QLabel("CEP:"), self.cep)
-        layout.addRow(QLabel("CPF:"), self.cpf)
+        layout.addRow(QLabel("CPF/cnpj:"), self.cpf)
         layout.addRow(QLabel("Telefone:"), self.telefone)
 
         buttons_layout = QHBoxLayout()
@@ -324,7 +324,7 @@ class ClienteDialog(QDialog):
             except Exception as e:
                 QMessageBox.critical(self, "Erro", f"Erro ao salvar cliente: {e}")
         else:
-            QMessageBox.warning(self, "Aviso", "Nome e CPF são obrigatórios.")
+            QMessageBox.warning(self, "Aviso", "Nome e CPF/cnpj são obrigatórios.")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

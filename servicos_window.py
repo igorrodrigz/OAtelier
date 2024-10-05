@@ -29,7 +29,7 @@ class ServicosWindow(QDialog):
         self.table_servicos.setColumnCount(12)  # 12 Colunas na tabela de serviços
         self.table_servicos.setHorizontalHeaderLabels([
             "ID Serviço", "Nome Projeto", "Data Entrada","Data Prazo" , "Status", "Detalhes",
-            "Material/Adicional","Valor","Quem Recebeu", "Aprovação", "Data Entregue", "Quem Retirou"
+            "Adicional","Valor","Vendedor", "Aprovação", "Data Entregue", "Quem Recebeu"
         ])
         self.table_servicos.setSelectionBehavior(QTableWidget.SelectRows)
         self.table_servicos.setEditTriggers(QTableWidget.NoEditTriggers)
@@ -85,7 +85,7 @@ class ServicosWindow(QDialog):
             cursor = conexao.cursor()
             cursor.execute("""
             SELECT ID_Servico, Nome_projeto, Data_entrada, Data_prazo, Status, Detalhes, Material_adicional, Valor,
-             Quem_recebeu, Aprovacao, Data_entregue, Quem_retirou
+             Vendedor, Aprovacao, Data_entregue, Quem_recebeu
             FROM CadastroServicos
             WHERE ID_Cliente = ?
             """, (self.cliente_id,))

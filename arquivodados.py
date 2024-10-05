@@ -26,14 +26,14 @@ def criar_banco():
             Nome_cliente TEXT,
             Data_entrada DATE,
             Data_prazo DATE,
-            Status TEXT CHECK(Status IN ('Entrada', 'Em andamento','Lixa','Marcenaria','Pintura', 'Terceirizado', 'Vistoria', 'Entregue')) NOT NULL,
+            Status TEXT CHECK(Status IN ('Entrada', 'Em Desenvolvimento','Testes','Periodo teste de versão','Alteração', 'Finalizado', 'Vistoria', 'Entregue')) NOT NULL,
             Detalhes TEXT,
             Material_adicional TEXT,
             Valor TEXT,
-            Quem_recebeu TEXT,
+            Vendedor TEXT,
             Aprovacao TEXT,
             Data_entregue DATE,
-            Quem_retirou TEXT,
+            Quem_recebeu TEXT,
             ID_Cliente INTEGER,
             FOREIGN KEY (ID_Cliente) REFERENCES CadastroClientes(ID_Cliente)
         )
